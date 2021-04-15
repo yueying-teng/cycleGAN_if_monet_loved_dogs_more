@@ -1,0 +1,23 @@
+FROM tensorflow/tensorflow:2.4.1-gpu
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y  \
+    git \
+    vim \
+    wget \
+    make \
+    pkg-config \
+    build-essential \
+    python-opencv
+
+# Setting Python environment and installing required pacakges
+ADD requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
+
+WORKDIR /work
+
+EXPOSE 8888
+CMD ["/bin/bash"]
+
+
+  
