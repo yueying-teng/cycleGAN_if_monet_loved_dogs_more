@@ -9,15 +9,12 @@ def discriminator_loss(real, generated):
     The perfect discriminator will output all 1s for real images and all 0s for fake images. 
     The discriminator loss outputs the average of the real and generated loss.
     """
-    # real_loss = tf.keras.losses.BinaryCrossentropy(from_logits=True,
-    #                                                reduction=tf.keras.losses.Reduction.NONE)(tf.ones_like(real), real)
-    # generated_loss = tf.keras.losses.BinaryCrossentropy(from_logits=True,
-    #                                                     reduction=tf.keras.losses.Reduction.NONE)(tf.zeros_like(generated),
-    #                                                     generated)
-    
-    real_loss = tf.keras.losses.BinaryCrossentropy(from_logits=True)(tf.ones_like(real), real)
-    generated_loss = tf.keras.losses.BinaryCrossentropy(from_logits=True)(tf.zeros_like(generated), generated)
-    
+
+    real_loss = tf.keras.losses.BinaryCrossentropy(
+        from_logits=True)(tf.ones_like(real), real)
+    generated_loss = tf.keras.losses.BinaryCrossentropy(
+        from_logits=True)(tf.zeros_like(generated), generated)
+
     total_disc_loss = real_loss + generated_loss
 
     return total_disc_loss * 0.5
@@ -29,10 +26,30 @@ def generator_loss(generated):
     The perfect generator will have the discriminator output only 1s. 
     Thus, it compares the generated image to a matrix of 1s to find the loss.
     """
-    # return tf.keras.losses.BinaryCrossentropy(from_logits=True,
-    #                                           reduction=tf.keras.losses.Reduction.NONE)(tf.ones_like(generated), generated)
 
     return tf.keras.losses.BinaryCrossentropy(from_logits=True)(tf.ones_like(generated), generated)
+
+
+def discriminator_loss_lsgan(real, generated):
+    """
+    https://github.com/tensorflow/gan/blob/master/tensorflow_gan/python/losses/losses_impl.py#L775
+    """
+
+    real_loss = tf.reduce_mean(
+        tf.math.squared_difference(tf.ones_like(real), real))
+    generated_loss = tf.reduce_mean(
+        tf.math.squared_difference(tf.zeros_like(generated), generated))
+
+    total_disc_loss = (real_loss + generated_loss)
+    return total_disc_loss * 0.5
+
+
+def generator_loss_lsgan(generated):
+    """
+    https://github.com/tensorflow/gan/blob/master/tensorflow_gan/python/losses/losses_impl.py#L775
+    """
+
+    return tf.reduce_mean(tf.math.squared_difference(tf.ones_like(generated), generated))
 
 
 def calc_cycle_loss(real_image, cycled_image, LAMBDA):
@@ -42,7 +59,7 @@ def calc_cycle_loss(real_image, cycled_image, LAMBDA):
     e.g.
     generator_monet: photo -> monet
     generator_photo: monet -> photo
-    
+
     generated_monet = generator_monet(real_photo) 
     cycled_photo = generator_photo(generated_monet)
     calc_cycle_loss(real_photo, cycled_photo)
@@ -61,12 +78,9 @@ def identity_loss(real_image, same_image, LAMBDA):
     e.g.
     generator_monet: photo -> monet
     generator_photo: monet -> photo
-    
+
     same_monet = generator_monet(real_monet) 
     identity_loss(real_monet, same_monet)
     """
     loss = tf.reduce_mean(tf.abs(real_image - same_image))
     return LAMBDA * 0.5 * loss
-
-
-
