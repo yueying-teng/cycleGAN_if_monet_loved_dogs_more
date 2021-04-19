@@ -19,16 +19,16 @@ class DataGenerator(tf.keras.utils.Sequence):
         self.batch_size = batch_size
         self.shuffle = shuffle
         self.flip = flip
-        self.photo_path = [os.path.join(photo_dir, i) for i in os.listdir(photo_dir)]
-        self.monet_path = [os.path.join(monet_dir, i) for i in os.listdir(monet_dir)]
+        self.photo_path = [os.path.join(photo_dir, i)
+                           for i in os.listdir(photo_dir)]
+        self.monet_path = [os.path.join(monet_dir, i)
+                           for i in os.listdir(monet_dir)]
         self.total_pairs = min(len(self.photo_path), len(self.monet_path))
         self.on_epoch_end()
-
 
     def __len__(self):
         # number of batched per epoch
         return int(math.ceil(self.total_pairs / float(self.batch_size)))
-
 
     def on_epoch_end(self):
         # shuffle the indices after each epoch during training
@@ -36,21 +36,19 @@ class DataGenerator(tf.keras.utils.Sequence):
         if self.shuffle == True:
             self.index = random.sample(self.index, len(self.index))
 
-
     def random_flip(self, photo_img, monet_img):
-        n = random.randint(0,3)
+        n = random.randint(0, 3)
         flipped_photo_img = np.rot90(photo_img, n)
         flipped_monet_img = np.rot90(monet_img, n)
 
         return flipped_photo_img, flipped_monet_img
-
 
     def resize(self, img):
         """
         resize the images to multiples of 256 to work with the 
         unet generator
         """
-        h, w,_ = img.shape
+        h, w, _ = img.shape
         new_h, new_w = (h//256+1)*256, (w//256+1)*256
         if new_h > 512:
             new_h = 512
@@ -60,12 +58,13 @@ class DataGenerator(tf.keras.utils.Sequence):
 
         return resized
 
-
     def __getitem__(self, idx):
-        batch_photo_img =[]
+        batch_photo_img = []
         batch_monet_img = []
-        batch_photo_path = self.photo_path[idx * self.batch_size: (idx + 1) * self.batch_size]
-        batch_monet_path = self.monet_path[idx * self.batch_size: (idx + 1) * self.batch_size]
+        batch_photo_path = self.photo_path[idx *
+                                           self.batch_size: (idx + 1) * self.batch_size]
+        batch_monet_path = self.monet_path[idx *
+                                           self.batch_size: (idx + 1) * self.batch_size]
         for path in zip(batch_photo_path, batch_monet_path):
             # print(path)
             photo_path, monet_path = path
@@ -87,7 +86,7 @@ class DataGenerator(tf.keras.utils.Sequence):
                     monet_img = cv2.resize(monet_img, (w, h))
                 else:
                     monet_img = cv2.resize(monet_img, (h, w))
-                    
+
             if self.flip:
                 photo_img, monet_img = self.random_flip(photo_img, monet_img)
 
@@ -95,6 +94,3 @@ class DataGenerator(tf.keras.utils.Sequence):
             batch_monet_img.append(monet_img)
 
         return np.array(batch_photo_img).astype('float32') / 127.5 - 1, np.array(batch_monet_img).astype('float32') / 127.5-1
-        
-
- 
