@@ -1,98 +1,120 @@
 <!DOCTYPE html>
 <html>
-<head>
-<style>
-div.gallery {
-  border: 0px solid #ccc;
-}
+  <head>
+    <style>
+      .grid {
+        padding: 0px 20px;
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-auto-rows: 200px;
+      }
 
-div.gallery img {
-  width: 100%;
-  height: auto;
-}
+      /* Non-grid specific CSS */
+      body {
+        margin: 10px;
+        color: #374046;
+        font-family: "Open Sans Condensed", sans-serif;
+        font-size: 1.15em;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
 
-div.desc {
-  padding: 15px;
-  text-align: center;
-}
+      .item {
+        background-color: #ffffff;
+      }
+      .title {
+        padding: 10px;
+      }
+      .photothumb {
+        width: 100%;
+        height: max-content;
+        object-fit: contain;
+        overflow: hidden;
+      }
+    </style>
+  </head>
 
-* {
-  box-sizing: border-box;
-}
+  <body>
+    <div class="title">
+      <h2>If Monet Loved Dogs More</h2>
+    </div>
 
-.responsive {
-  padding: 0 6px;
-  float: left;
-  width: 24.99999%;
-}
+    <div class="grid">
+      <div class="item photo">
+        <div class="content">
+          <img class="photothumb" src="./images/n02096051_2890.jpg" />
+        </div>
+      </div>
 
-@media only screen and (max-width: 700px) {
-  .responsive {
-    width: 49.99999%;
-    margin: 6px 0;
-  }
-}
+      <div class="item photo">
+        <div class="content">
+          <img class="photothumb" src="./images/n02096051_2903.jpg" />
+        </div>
+      </div>
 
-@media only screen and (max-width: 500px) {
-  .responsive {
-    width: 100%;
-  }
-}
+      <div class="item photo">
+        <div class="content">
+          <img class="photothumb" src="./images/n02096051_3045.jpg" />
+        </div>
+      </div>
 
-.clearfix:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-</style>
-</head>
-<body>
+      <div class="item photo">
+        <div class="content">
+          <img class="photothumb" src="./images/n02096051_3030.jpg" />
+        </div>
+      </div>
 
-<h2>If Monet Loved Dogs More</h2>
+      <div class="item photo">
+        <div class="content">
+          <img class="photothumb" src="./images/n02096051_2954.jpg" />
+        </div>
+      </div>
 
-<div class="responsive">
-  <div class="gallery">
-    <img src="./images/n02096051_2890.jpg" alt="" width="600" height="400">
+      <div class="item photo">
+        <div class="content">
+          <img class="photothumb" src="./images/n02096051_2946.jpg" />
+        </div>
+      </div>
+    </div>
+  </body>
 
-  </div>
-</div>
+  <script>
+    function resizeGridItem(item) {
+      grid = document.getElementsByClassName("grid")[0];
+      rowHeight = parseInt(
+        window.getComputedStyle(grid).getPropertyValue("grid-auto-rows")
+      );
+      rowGap = parseInt(
+        window.getComputedStyle(grid).getPropertyValue("grid-row-gap")
+      );
+      rowSpan = Math.ceil(
+        (item.querySelector(".content").getBoundingClientRect().height +
+          rowGap) /
+          (rowHeight + rowGap)
+      );
+      item.style.gridRowEnd = "span " + rowSpan;
+    }
 
-<div class="responsive">
-  <div class="gallery">
-    <img src="./images/n02096051_2903.jpg" alt="" width="600" height="400">
-  </div>
-</div>
+    function resizeAllGridItems() {
+      allItems = document.getElementsByClassName("item");
+      for (x = 0; x < allItems.length; x++) {
+        resizeGridItem(allItems[x]);
+      }
+    }
 
+    window.onload = resizeAllGridItems();
 
-<div class="responsive">
-  <div class="gallery">
-    <img src="./images/n02096051_3045.jpg" alt="" width="600" height="400">
-  </div>
-</div>
+    window.addEventListener("resize", resizeAllGridItems);
 
+    allItems = document.getElementsByClassName("item");
+    for (x = 0; x < allItems.length; x++) {
+      imagesLoaded(allItems[x], resizeInstance);
+    }
 
-<div class="responsive">
-  <div class="gallery">
-    <img src="./images/n02096051_3030.jpg" alt="" width="600" height="400">
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <img src="./images/n02096051_2954.jpg" alt="" width="600" height="400">
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <img src="./images/n02096051_2946.jpg" alt="" width="600" height="400">
-  </div>
-</div>
-
-
-<div class="clearfix"></div>
-
-
-
-</body>
+    function resizeInstance(instance) {
+      item = instance.elements[0];
+      resizeGridItem(item);
+    }
+  </script>
 </html>
