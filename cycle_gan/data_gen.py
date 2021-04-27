@@ -31,10 +31,10 @@ class DataGenerator(tf.keras.utils.Sequence):
         return int(math.ceil(self.total_pairs / float(self.batch_size)))
 
     def on_epoch_end(self):
-        # shuffle the indices after each epoch during training
-        self.index = range(self.total_pairs)
+        # shuffle the image paths after each epoch during training
         if self.shuffle == True:
-            self.index = random.sample(self.index, len(self.index))
+            random.shuffle(self.photo_path)
+            random.shuffle(self.monet_path)
 
     def random_flip(self, photo_img, monet_img):
         n = random.randint(0, 3)
@@ -47,9 +47,12 @@ class DataGenerator(tf.keras.utils.Sequence):
         """
         resize the images to multiples of 256 to work with the 
         unet generator
+        images with one side greater than 512 will likely cause 
+        memory issue during training
         """
         h, w, _ = img.shape
         new_h, new_w = (h//256+1)*256, (w//256+1)*256
+        # makes sure that all images are less than or euqal to 512x512
         if new_h > 512:
             new_h = 512
         if new_w > 512:
@@ -76,6 +79,8 @@ class DataGenerator(tf.keras.utils.Sequence):
             photo_img = self.resize(photo_img)
             h, w, _ = photo_img.shape
             monet_h, monet_w, _ = monet_img.shape
+            # resize both photo_img and monet_img to the same dimension without
+            # changing their orientations
             if monet_h > monet_w:
                 if h > w:
                     monet_img = cv2.resize(monet_img, (w, h))
