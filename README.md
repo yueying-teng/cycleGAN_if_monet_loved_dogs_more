@@ -48,10 +48,10 @@ jupyter notebook --ip=0.0.0.0 --allow-root
 
 - ResNet based generator and 3-layer PatchGAN discriminator
 - LS GAN loss
-- image buffer
+- image buffer with pool size: 50
 - learning rate decay (linearly towards 0 after the first 100 epochs)
 - 200 epochs with batch size 1
 
 ## Gallery
 
-[here]()
+click [here]()
