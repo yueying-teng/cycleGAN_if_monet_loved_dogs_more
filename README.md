@@ -1,4 +1,4 @@
-# If Monet Liked Dogs More
+# If Monet Loved Dogs More
 
 ## Training Data
 
