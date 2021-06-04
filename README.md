@@ -53,5 +53,6 @@ jupyter notebook --ip=0.0.0.0 --allow-root
 - 200 epochs with batch size 1
 
 ## Gallery
+click [here](https://yueying-teng.github.io/cycleGAN_if_monet_loved_dogs_more/)
 
-click [here]()
+<img src="https://github.com/yueying-teng/cycleGAN_if_monet_loved_dogs_more/blob/master/gallery/gallery.png" height="300">
