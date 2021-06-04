@@ -55,4 +55,4 @@ jupyter notebook --ip=0.0.0.0 --allow-root
 ## Gallery
 click [here](https://yueying-teng.github.io/cycleGAN_if_monet_loved_dogs_more/)
 
-<img src="https://github.com/yueying-teng/cycleGAN_if_monet_loved_dogs_more/blob/master/gallery/gallery.png" height="600">
+<img src="https://github.com/yueying-teng/cycleGAN_if_monet_loved_dogs_more/blob/master/gallery/gallery.png" width="1300">
