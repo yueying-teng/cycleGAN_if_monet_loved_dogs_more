@@ -29,10 +29,10 @@ docker run --gpus all -v $(pwd):/work -p 8888:8888 -p 6006:6006 -it monet_cycleg
 # start jupyter notebook
 jupyter notebook --ip=0.0.0.0 --allow-root
 
-# see details about in the notebook folder
+# see details about the following steps in the notebook folder
   # data preparation
   # model training
-  # model preparation for tensorflow serving
+  # model preparation for Tensorflow Serving
 ```
 
 ## Implementations
