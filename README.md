@@ -1,6 +1,6 @@
 # If Monet Loved Dogs More
 ### Sister repos:
-- ### [CycleGAN model training](https://github.com/yueying-teng/streamlit_tfserving_if_monet_loved_dogs_more)
+- ### [Deployment with Google Cloud Run](https://github.com/yueying-teng/if_monet_loved_dogs_more_google_cloud_run)
 - ### [tf serving with streamlit ui locally (docker-compose)](https://github.com/yueying-teng/streamlit_tfserving_if_monet_loved_dogs_more)
 
 ## Training Data
