@@ -1,4 +1,7 @@
 # If Monet Loved Dogs More
+### Sister repos:
+- ### [CycleGAN model training](https://github.com/yueying-teng/streamlit_tfserving_if_monet_loved_dogs_more)
+- ### [tf serving with streamlit ui locally (docker-compose)](https://github.com/yueying-teng/streamlit_tfserving_if_monet_loved_dogs_more)
 
 ## Training Data
 
@@ -26,7 +29,10 @@ docker run --gpus all -v $(pwd):/work -p 8888:8888 -p 6006:6006 -it monet_cycleg
 # start jupyter notebook
 jupyter notebook --ip=0.0.0.0 --allow-root
 
-# see details in the notebook folder
+# see details about in the notebook folder
+  # data preparation
+  # model training
+  # model preparation for tensorflow serving
 ```
 
 ## Implementations
@@ -56,3 +62,7 @@ jupyter notebook --ip=0.0.0.0 --allow-root
 click [here](https://yueying-teng.github.io/cycleGAN_if_monet_loved_dogs_more/)
 
 <img src="https://github.com/yueying-teng/cycleGAN_if_monet_loved_dogs_more/blob/master/gallery/gallery.png" width="1300">
+
+## App
+Check [it](https://if-monet-loved-dogs-more-app-xtyx6u2o6a-uc.a.run.app/) out !
+<img src="https://github.com/yueying-teng/cycleGAN_if_monet_loved_dogs_more/blob/master/gallery/Google_cloud_run_app.png" width="900">
