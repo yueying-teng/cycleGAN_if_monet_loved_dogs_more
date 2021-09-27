@@ -64,5 +64,5 @@ click [here](https://yueying-teng.github.io/cycleGAN_if_monet_loved_dogs_more/)
 <img src="https://github.com/yueying-teng/cycleGAN_if_monet_loved_dogs_more/blob/master/gallery/gallery.png" width="1300">
 
 ## App
-Check [it](https://if-monet-loved-dogs-more-app-xtyx6u2o6a-uc.a.run.app/) out !
+Check [it]() out !
 <img src="https://github.com/yueying-teng/cycleGAN_if_monet_loved_dogs_more/blob/master/gallery/Google_cloud_run_app.png" width="900">
